@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  test:
+    build: .
+    working_dir: /app
+    command: bash -c "
+        flake8 .
+        && pytest --cov
+      "
+    volumes:
+      - .:/app
+
+  program:
+    build: .
+    stdin_open: true
+    tty: true
+    working_dir: /app
+    command: python -m pyrobot.main
+    volumes:
+      - .:/app
